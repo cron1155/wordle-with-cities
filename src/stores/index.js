@@ -11,10 +11,15 @@ export const initialState = {
 export function reducer(state, action) {
     switch (action.type) {
         case "ADD_LETTER":
-            return {
-                ...state,
-                currentCity: state.currentCity + action.value
+            if (state.win) {
+                return state
             }
+
+            if (state.currentCity.length < state.chosenCity.length)
+                return {
+                    ...state,
+                    currentCity: state.currentCity + action.value
+                }
         case "REMOVE_LETTER":
             return {
                 ...state,
@@ -30,9 +35,12 @@ export function reducer(state, action) {
                 if (state.currentCity.length === state.chosenCity.length) {
                     return {
                         ...state,
-                        currentTries: [...state.currentTries, state.currentCity]
+                        currentTries: [...state.currentTries, state.currentCity],
+                        currentCity: ""
                     }
                 }
+
+                return state
             }
         default:
             throw Error("Unknown Action!");

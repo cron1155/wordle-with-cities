@@ -1,0 +1,28 @@
+
+
+
+.letter {
+    border-width: 1px;
+    border-style: solid;
+    flex: 1;
+    width: 50px;
+}
+
+.letterCorrectSpot {
+    background-color: green;
+}
+
+.letterWrongSpot {
+    background-color: yellow;
+}
+
+.letterNotInWord {
+    background-color: gray;
+}
+
+
+
+.word {
+    display: flex;
+    justify-content: space-between;
+}

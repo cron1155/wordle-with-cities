@@ -1,9 +1,10 @@
 import KeyboardKey from "./components/KeyboardKey";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Cities, KeyboardKeys } from "./constants";
+import { Cities, KeyboardKeys, MaxTries } from "./constants";
 import { getFullDate } from "./helpers";
 import { reducer, initialState } from "./stores";
 import { useReducer } from "react";
+import WordTry from "./components/WordTry";
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -26,12 +27,32 @@ function App() {
     })
   }, [])
 
+  const triesList = useMemo(() => {
+    return [...Array(MaxTries)].map((_, index) => {
+
+
+      if (state.currentTries[index]) {
+        return <WordTry word={state.currentTries[index]} length={state.chosenCity.length} checkWord={true} targetWord={state.chosenCity} />
+      }
+      else if (state.currentTries.length === index) {
+        return <WordTry word={state.currentCity} length={state.chosenCity.length} />
+      }
+      else {
+        return <WordTry word={""} length={state.chosenCity.length} />
+      }
+    })
+  }, [state.currentTries, state.currentCity, state.choosenCity])
+
   useEffect(() => {
     console.log(state)
   }, [state])
 
   return (
     <div>
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        {triesList}
+      </div>
+
       <p>{state.chosenCity}</p>
       <p>{state.currentCity}</p>
 
