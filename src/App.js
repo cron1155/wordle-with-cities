@@ -6,13 +6,20 @@ import { reducer, initialState } from "./stores";
 import { useReducer } from "react";
 import WordTry from "./components/WordTry";
 
+import './global.css';
+
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  const [err, setErr] = useState("")
 
   const handleKeyClick = useCallback((keyName) => {
     if (keyName === "ENTER") {
-      dispatch({ type: "ENTER" })
+      dispatch({
+        type: "ENTER", onErr: (msg) => {
+          setErr(msg)
+        }
+      })
     } else if (keyName === "DELETE") {
       dispatch({ type: "REMOVE_LETTER" })
 
@@ -22,14 +29,17 @@ function App() {
   }, [state])
 
   const visualKeys = useMemo(() => {
-    return [...KeyboardKeys, "ENTER", "DELETE"].map((keyName) => {
-      return <KeyboardKey key={keyName} keyName={keyName} onClick={handleKeyClick} />
+    return [...KeyboardKeys, "ENTER", "DELETE"].map((keyName, index, arr) => {
+      if (index === arr.length - 8) {
+        return <KeyboardKey key={"ENTER"} keyName={"ENTER"} onClick={handleKeyClick} />
+      } else if (keyName !== "ENTER") {
+        return <KeyboardKey key={keyName} keyName={keyName} onClick={handleKeyClick} />
+      }
     })
   }, [])
 
   const triesList = useMemo(() => {
     return [...Array(MaxTries)].map((_, index) => {
-
 
       if (state.currentTries[index]) {
         return <WordTry word={state.currentTries[index]} length={state.chosenCity.length} checkWord={true} targetWord={state.chosenCity} />
@@ -43,21 +53,38 @@ function App() {
     })
   }, [state.currentTries, state.currentCity, state.choosenCity])
 
+
   useEffect(() => {
-    console.log(state)
-  }, [state])
+    let timeoutId;
+    if (err) {
+      timeoutId = setTimeout(() => setErr(""), 2000)
+    }
+
+    return () => {
+      clearTimeout(timeoutId)
+    }
+  }, [err])
 
   return (
     <div>
-      <div style={{ display: "flex", flexDirection: "column" }}>
-        {triesList}
+      <div className="header">
+        <div className="logo">Wordle with Cities</div>
       </div>
 
-      <p>{state.chosenCity}</p>
-      <p>{state.currentCity}</p>
+      <div className="body">
+        <div className="errBubble">
+          {err}
+        </div>
+        <div className="triesList">
+          {triesList}
+        </div>
 
-      {visualKeys}
+        <div className="keyboardKeys">
+          {visualKeys}
+        </div>
+      </div>
     </div>
+
   );
 }
 

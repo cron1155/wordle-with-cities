@@ -5,16 +5,12 @@ import { useMemo } from "react"
 
 function KeyboardKey({ keyName, onClick }) {
 
-
-
     function handleOnClick() {
         onClick(keyName)
     }
 
-
-
     return (
-        <button onClick={handleOnClick}>
+        <button className="keyboardKey" onClick={handleOnClick}>
             {keyName}
         </button>
     )

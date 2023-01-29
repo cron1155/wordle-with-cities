@@ -26,13 +26,25 @@ export function reducer(state, action) {
                 currentCity: state.currentCity.substring(0, state.currentCity.length - 1)
             }
         case "ENTER":
+
+
             if (state.currentCity.toLowerCase() === state.chosenCity.toLowerCase()) {
                 return {
                     ...state,
+                    currentTries: [...state.currentTries, state.currentCity],
+                    currentCity: "",
                     win: true
                 }
             } else {
                 if (state.currentCity.length === state.chosenCity.length) {
+                    if (Cities.indexOf((city) => city.toLowerCase() === state.chosenCity.toLowerCase()) === -1) {
+                        if (action.onErr) {
+                            action.onErr("Not a city name!");
+                        }
+
+                        return state;
+                    }
+
                     return {
                         ...state,
                         currentTries: [...state.currentTries, state.currentCity],

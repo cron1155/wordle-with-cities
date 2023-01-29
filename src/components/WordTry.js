@@ -21,7 +21,7 @@ function WordTry({ word, length, checkWord, targetWord }) {
                 return <div key={word + index} className={`${style.letter}`}>{word[index]}</div>
             }
             else
-                return <div key={word + index} className={style.letter}>.</div>
+                return <div key={word + index} className={style.letter}></div>
         })
     }, [word, checkWord, targetWord])
 

@@ -1,0 +1,59 @@
+body {
+  background-color: rgb(23, 23, 23);
+  color: white;
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.keyboardKeys {
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.triesList {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.header {
+  background-color: rgb(42, 42, 42);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.header .logo {
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+
+.keyboardKey {
+  width: 50px;
+  height: 50px;
+  margin-left: 4px;
+  margin-bottom: 4px;
+  background-color: rgb(42, 42, 42);
+  color: white;
+  font-weight: 600;
+  border: none;
+}
+
+.errBubble {
+  color: black;
+  background-color: aliceblue;
+  height: 2rem;
+  margin: 1rem;
+  border-radius: 5px;
+  padding: 1px 0px;
+  display: flex;
+  align-items: center;
+}
