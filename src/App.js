@@ -42,17 +42,21 @@ function App() {
     return [...Array(MaxTries)].map((_, index) => {
 
       if (state.currentTries[index]) {
-        return <WordTry word={state.currentTries[index]} length={state.chosenCity.length} checkWord={true} targetWord={state.chosenCity} />
+        return <WordTry key={index} word={state.currentTries[index]} length={state.chosenCity.length} checkWord={true} targetWord={state.chosenCity} />
       }
       else if (state.currentTries.length === index) {
-        return <WordTry word={state.currentCity} length={state.chosenCity.length} />
+        return <WordTry key={index} word={state.currentCity} length={state.chosenCity.length} />
       }
       else {
-        return <WordTry word={""} length={state.chosenCity.length} />
+        return <WordTry key={index} word={""} length={state.chosenCity.length} />
       }
     })
   }, [state.currentTries, state.currentCity, state.choosenCity])
 
+  useEffect(() => {
+    console.log("Today city is " + state.chosenCity)
+
+  }, [state])
 
   useEffect(() => {
     let timeoutId;

@@ -2,7 +2,6 @@ import { useMemo } from "react"
 
 import style from './WordTry.module.css'
 
-
 function WordTry({ word, length, checkWord, targetWord }) {
 
     const words = useMemo(() => {
