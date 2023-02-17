@@ -26,8 +26,6 @@ export function reducer(state, action) {
                 currentCity: state.currentCity.substring(0, state.currentCity.length - 1)
             }
         case "ENTER":
-
-
             if (state.currentCity.toLowerCase() === state.chosenCity.toLowerCase()) {
                 return {
                     ...state,

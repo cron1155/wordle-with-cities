@@ -7,9 +7,13 @@ import { useReducer } from "react";
 import WordTry from "./components/WordTry";
 
 import './global.css';
+import { useModal } from "./components/Modal";
+import HelpModal from "./components/HelpModal";
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  const [_, setModal] = useModal()
 
   const [err, setErr] = useState("")
 
@@ -56,7 +60,28 @@ function App() {
   useEffect(() => {
     console.log("Today city is " + state.chosenCity)
 
+    const helpModalShown = localStorage.getItem("helpModalShown")
+    if (!helpModalShown) {
+      setModal({
+        enabled: true,
+        title: "How to play!",
+        children: <HelpModal chosenCity={state.chosenCity} />
+      })
+
+      localStorage.setItem("helpModalShown", true)
+    }
+
   }, [state])
+
+  useEffect(() => {
+    if (state.win)
+      setModal({
+        enabled: true,
+        title: "You Won!",
+        children: <><p>You guessed the city!</p>
+          <p>The hidden city was {state.chosenCity}</p></>
+      })
+  }, [state.win])
 
   useEffect(() => {
     let timeoutId;
@@ -73,6 +98,14 @@ function App() {
     <div>
       <div className="header">
         <div className="logo">Wordle with Cities</div>
+
+        <button onClick={() => {
+          setModal({
+            enabled: true,
+            title: "How to play!",
+            children: <HelpModal chosenCity={state.chosenCity} />
+          })
+        }}>How To Play</button>
       </div>
 
       <div className="body">
