@@ -6,11 +6,11 @@
   width: 100%;
   height: 100%;
 
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.9);
   display: flex;
   justify-content: center;
   align-items: start;
-  padding: 5rem 0.5rem;
+  padding: 5rem 0rem;
 }
 
 .innerContainer {
@@ -29,7 +29,7 @@
 }
 
 .modalBody {
-  padding: 0rem 0.5rem;
+  padding: 0.5rem 0.5rem;
 }
 
 @media only screen and (min-width: 600px) {

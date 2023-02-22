@@ -15,6 +15,11 @@ button {
   padding: 0 0.5rem;
 }
 
+button.green {
+  background-color: rgb(0, 90, 29);
+  color: rgb(0, 255, 81);
+}
+
 button:hover {
   background-color: rgb(97, 97, 97);
 }
